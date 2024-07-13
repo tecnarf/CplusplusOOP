@@ -1,0 +1,88 @@
+/*SOBRECARGA DE METODOS: 
+La sobrecarga de métodos en C++ es una característica que permite definir múltiples funciones con el mismo nombre 
+pero con la condicion de que tengan diferente:
+	- Cantidad parámetros.
+	- Tipo de parametro.
+	- Cantidad y tipo de parametro
+Ocurre cuando se definen funciones con el mismo nombre pero con distinta cantidad de y/o tipos de argumentos
+*/
+
+class Superclase{
+
+	int x, y;
+
+    	virtual int metodo1(){return 0;}//se puede sobreescribir
+	//float metodo1(){return 3.14;}//error de compilacion
+	double metodo1(int z){return 10;}//sobrecarga
+
+};
+
+class Subclase1 : public Superclase{ //La clase Subclase1 hereda de la clase Superclase utilizando la palabra clave public. 
+				     //Esto significa que Subclase tiene acceso a todos los miembros públicos de Superclase 
+				     //Cuando una subclase hereda de manera pública de una superclase en C++, los miembros publico se vuelven publicos en la subclase,				             //los  miembros protegidos de la superclase se vuelven miembros protegidos en la subclase, y los miembros privados de 				                     //la superclase no son accesibles directamente en la subclase.
+				     //Además, Subclase también puede agregar nuevos miembros o sobrescribir los miembros heredados según sea necesario.
+
+
+    	int metodo1(){//sobreescritura y no hay error de compilacion porque metodo1() en la superclase es virtual 
+	   int x;
+	   //... algun proceso
+	   return x;
+	}
+	/*
+	int metodo1(int y) {//error de compilacion por que hay conflicto entre  llamar a metodo1(int z) heredado o a metodo1(int y) propio de la clase SubClase1
+	   //... algun proceso
+	   return y;
+	}
+	*/
+	
+	int metodo1(int y, float w) {//sobrecarga
+	   //... algun proceso
+	   return y;
+	}
+    	/*	
+	int metodo1() {//error de compilacion por que hay conflicto con el metodo1() que es sobreescrito
+	   int y;
+	   //... algun proceso
+	   return y;
+	}
+	*/
+}
+
+class Subclase2 : public Superclase{
+     virtual int metodo1() {  
+	   //...hace alguna cosa
+	   return 5;
+	 }
+}
+
+void procesar(Superclase *sp) {//puntero a superclase
+				//la funcion tiene por parametro un puntero a Superclase
+				//y por ende puede recibir la direccion de memoria de cualquier objeto 
+				//que sea una instancia de alguna clase derivada de ella
+   sp->metodo1(); //cual ejecuta? metodo de subclase
+}
+
+int main() {
+   Subclase1 s;//podemos instanciar porque no es una clase abstracta
+   s.metodo1();//podemos usar el metodo por que es publico (accesible desde cualquier parte del programa)
+   double d = s.metodo1(45);//sobrecarga de metodo1 (se usa double metodo1(int z) heredado de SuperClase 
+   int i = s.metodo1(45, 3.14);//sobrecarga de metodo1(se llama a int metodo1(int y, float w) heredado de SuoerClase)
+   
+   //polimorfismo
+   Superclase *sup;//puntero a superclase
+   
+   sup = new Subclase1();//se carga la direccion de memoria de una instancia de Subclase1 
+			 //Podemos hacer esto por que una instancia de Subclase1 es una instancia especializada de Superclase (por la relacion de herencia)
+   sup->metodo1();//Usamos metodo1() de la instancia de subclase1  
+   ...
+   sup = new Subclase2();//Se cumple lo mismo mencionado anteriormente, sup puede almacenar la direccion de memoria de un objeto de la clase SubClase2 
+			 //por que este es a su vez un objeto (especializado) de SuperClase 
+   sup->metodo1();
+  
+   procesar(&s);//se le pasa la direccion de memoria o referencia del objeto s de la subclase1
+   Subclase2 *s2 = new Subclase2();//Se crea un puntero a Subclase2 cuya direccion de memoria correspondiente se
+				   //asigna de manera dinamica(durante la ejecucion del programa) y sera la de un 
+				   //nuevo objeto de la clase subclase2 que tambien sera instanciado dinamicamente
+   procesar(s2);//asi pasamos la direccion de memoria del objeto creado dinamicamente
+   
+  }

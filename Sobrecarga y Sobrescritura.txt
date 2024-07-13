@@ -1,0 +1,91 @@
+class Superclase {
+
+	int x, y;
+
+	virtual int metodo1() {  return 0; }
+
+	//float metodo1() { return 3.14; }  //error de compilacion
+
+	double metodo1(int z) { return 10; } //sobrecarga
+}
+
+class Subclase1 : Superclase {   
+       int metodo1() {//sobreescritura
+	   int x;
+	   //... algun proceso
+	   return x;
+	}
+	/*
+	int metodo1(int y) {       //error de compilacion
+	   //... algun proceso
+	   return y;
+	}
+	*/
+	
+	int metodo1(int y, float algo) { //sobrecarga
+	   //... algun proceso
+	   return y;
+	}
+    /*	
+	int metodo1() {            //error de compilacion
+	   int y;
+	   //... algun proceso
+	   return y;
+	}
+	*/
+}
+
+class Subclase2 : Superclase {
+     virtual int metodo1() {  
+	   // hace alguna cosa
+	   return 5;
+	 }
+}
+
+void procesar(Superclase *sp) {
+   sp->metodo1(); //cual ejecuta? metodo de subclase
+}
+
+main() {
+   Subclase1 s;
+   s.metodo1();
+   double d = s.metodo1(45);
+   int i = s.metodo1(45, 3.14);
+   
+   //polimorfismo
+   Superclase *sup;
+   
+   sup = new Subclase1();
+   sup->metodo1();    
+   ...
+   sup = new Subclase2();
+   sup->metodo1();
+  
+   procesar(&s);
+   Subclase2 *s2 = new Subclase2();
+   procesar(s2);
+   
+   Empleado *e = new Empleado();  //da error si tiene metodo virtual puro
+}
+
+class Empleado : Persona {
+   virtual int calcularSalario() {
+       return salario * 0.84;
+   }
+}
+
+class Gerente : Empleado, Trabajador {
+   virtual int calcularSalario() {  //no virtual puro
+       return 10000000+salario * 0.84;
+   }
+   string cobrarSalario() {
+       return " El Gerente cobra en cheque " + calcularSalario();
+   }
+   
+}
+
+class Trabajador {  //interface
+    virtual int calcularSalario() = 0;  //virtual puro
+	virtual string trabajar() = 0;
+	virtual string cobrarSalario() = 0;
+}
