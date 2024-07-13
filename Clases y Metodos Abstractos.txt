@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+namespace RRHH {
+
+	class Empleado {//clase abstracta, tiene metodo abstracto
+    		
+		public:
+        		
+			const static unsigned int SALARIO_MIN = 2100000;
+
+        		Empleado(){}
+			Empleado(int sal) {salario = sal;}
+
+		        virtual ~Empleado(){}
+		
+        		unsigned int Getsalario() { return salario; }
+        		void Setsalario(unsigned int val) { salario = val; }
+
+		        virtual int cobrarSalario() = 0;     //metodo virtual                                                                //puro, metodo abstracto
+
+		        virtual int calcularSalario() {      //pueden ser 							     //polimorficos
+        			return salario * 0.91;
+			}
+			virtual string toString() { }       //puede ser 							    //polimorfico
+		
+   		 protected:
+        		unsigned int salario;
+	};
+
+
+	class Gerente : public Empleado {
+		
+		public:
+        		Gerente() {}
+			Gerente(int sal){salario = sal;}
+        
+			virtual ~Gerente(){}
+        
+        		int cobrarSalario() {//sobreescribe el metodo, puede ser 						//polimorfico
+        			return  salario;
+			}
+
+        		int calcularSalario() {   //sobreescribe el metodo, puede 							//ser polimorfico
+        			return  salario*2*0.91;
+			}
+			
+			string toString() { }     //sobreescribe el metodo, puede 						  //ser polimorfico
+    };
+
+}
+
+using namespace RRHH;
+
+int main(){
+	RRHH::Empleado *e2;
+	Gerente g(5000000);
+	e2 = &g; 
+	std::cout << e2->Getsalario() << endl;
+	cout << "Salario a cobrar: " << e2->calcularSalario() << endl;
+	cout << "Cobrar Salario: " << e2->cobrarSalario();
+	
+}
