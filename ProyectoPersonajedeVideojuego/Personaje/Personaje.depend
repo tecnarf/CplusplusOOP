@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1739147358 source:c:\users\ppp\desktop\proyectopersonajedevideojuego\personajedevideojuego\main.cpp
+	<iostream>
+	"Personaje.h"
+
+1739147358 c:\users\ppp\desktop\proyectopersonajedevideojuego\personajedevideojuego\personaje.h
+	<iostream>
+	<sstream>
+
+1739147358 source:c:\users\ppp\desktop\proyectopersonajedevideojuego\personajedevideojuego\personaje.cpp
+	<iostream>
+	<sstream>
+	"Personaje.h"
+
+1739147358 source:c:\users\ppp\desktop\proyectopersonajedevideojuego\personaje\main.cpp
+	<iostream>
+	"Personaje.h"
+
+1739147358 c:\users\ppp\desktop\proyectopersonajedevideojuego\personaje\personaje.h
+	<iostream>
+	<sstream>
+
+1739147358 source:c:\users\ppp\desktop\proyectopersonajedevideojuego\personaje\personaje.cpp
+	<iostream>
+	<sstream>
+	"Personaje.h"
+
